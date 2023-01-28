@@ -19,22 +19,46 @@ margin-bottom: 30px;
 color: #333;
 }
 
-ul {
+.col {
+float: left;
+width: 33.33%;
+justify-content: center;
+margin-bottom: 30px;
+
+}
+
+.col h2 {
+text-align: center;
+margin-bottom: 10px;
+color: #333;
+}
+
+.col ul {
 list-style-type: none;
 margin: 0;
 padding: 0;
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
 }
 
-li {
+.col li {
 background-color: #fff;
 padding: 10px;
 margin: 10px;
 box-shadow: 0px 0px 10px #ccc;
 width: 300px;
 text-align: center;
+}
+#banner {
+background-color: #333;
+color: #fff;
+font-size: 48px; /* increased from 36px */
+padding: 30px; /* increased from 20px */
+height: 80px; 
+white-space: nowrap;
+overflow: hidden;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
 }
 
 a {
@@ -58,13 +82,79 @@ top: 0;
 width: 17%;
 height: 17%;
 }
+.color-change {
+animation: color-change 5s linear infinite;
+}
+
+@keyframes color-change {
+0% {
+color: red;
+}
+25% {
+color: blue;
+}
+50% {
+color: white;
+}
+75% {
+color: blue;
+}
+100% {
+color: red;
+}
+}
+
+.col .li:hover  {
+    animation: color-change 5s linear infinite;
+}
+
+@keyframes color-change {
+  0% {
+    background-color: blue;
+  }
+  33% {
+    background-color: red;
+  }
+  66% {
+    background-color: white;
+  }
+  100% {
+    background-color: blue;
+  }
+}
 </style>
+<div class="banner">
+    <marquee behavior="scroll" direction="left" scrollamount="5">
+    {%for news in military_list%}
+      <span class="color-change">{{news.topic}} &nbsp; &nbsp; &nbsp; </span>
+    {%endfor%}
+    </marquee>
+  </div>
 <h1>Native Force</h1>
-<ul>
-{% for news in news_list %}
-<li><a href="{{ news.url }}">{{ news.topic }}</a></li>
-{% endfor %}
-</ul>
+<div class="col">
+  <h2>Military</h2>
+  <ul>
+    {% for news in military_list %}
+    <li><a href="{{ news.url }}">{{ news.topic }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+<div class="col">
+  <h2>Sports</h2>
+  <ul>
+    {% for news in sports_list %}
+    <li><a href="{{ news.url }}">{{ news.topic }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+<div class="col">
+  <h2>Conspiracy</h2>
+  <ul>
+    {% for news in conspiracy_list %}
+    <li><a href="{{ news.url }}">{{ news.topic }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
 <img  class="elephant" src="{{ url_for('static', filename='elephant.png') }}" alt="Elephant" width="100" height="100">
     <img class="bald-eagle"  src="{{ url_for('static', filename='eagle.png') }}" alt="Bald Eagle" width="100" height="100">
   </body>
